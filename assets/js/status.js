@@ -13,10 +13,6 @@
 const STATUS_API_URL =
     "https://status-metropolitano-api.squareweb.app/site/status";
 
-const STATUS_INTERNAL_API_KEY =
-    "ABdhvsnber3dshEBry84356k6n846nbfb73JFDfb37";
-
-
 /*
  * =========================================================
  * ELEMENTOS DO HTML
@@ -136,12 +132,6 @@ async function consultarStatus() {
     const response = await fetch(STATUS_API_URL, {
 
         method: "GET",
-
-        headers: {
-            "X-Internal-Key": STATUS_INTERNAL_API_KEY,
-            "Accept": "application/json"
-        }
-
     });
 
 
