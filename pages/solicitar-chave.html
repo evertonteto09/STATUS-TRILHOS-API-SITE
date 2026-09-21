@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Solicitar API-Key | API Status Metropolitano</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <link rel="stylesheet" href="../assets/css/chaves.css">
+
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="site-header">
+
+        <div class="container header-content">
+
+            <a
+                href="../index.html"
+                class="brand"
+                aria-label="Página inicial da API Status Metropolitano"
+            >
+
+                <span class="brand-icon">
+                    🚇
+                </span>
+
+                <span class="brand-text">
+
+                    <strong>
+                        STATUS
+                    </strong>
+
+                    <span>
+                        METROPOLITANO
+                    </span>
+
+                </span>
+
+            </a>
+
+
+            <nav
+                class="main-navigation"
+                aria-label="Navegação principal"
+            >
+
+                <a
+                    href="../index.html"
+                    class="nav-link"
+                >
+                    Início
+                </a>
+
+                <a
+                    href="status.html"
+                    class="nav-link"
+                >
+                    Status
+                </a>
+
+                <a
+                    href="documentacao.html"
+                    class="nav-link"
+                >
+                    Documentação
+                </a>
+
+                <a
+                    href="solicitar-chave.html"
+                    class="nav-link active"
+                    aria-current="page"
+                >
+                    API Key
+                </a>
+
+            </nav>
+
+
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Abrir menu"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         CONTEÚDO
+    ========================== -->
+
+    <main class="api-key-page">
+
+        <section class="api-key-container">
+
+            <div class="api-key-header">
+
+                <h1>Solicitar API-Key</h1>
+
+                <p>
+                    Preencha os dados abaixo para solicitar uma chave
+                    de acesso à API Status Metropolitano.
+                </p>
+
+            </div>
+
+
+
+
+            <!-- =================================================
+                 ACESSO AO PAINEL DA API KEY
+            ================================================== -->
+
+            <div
+                id="panel-access-entry"
+                class="panel-access-entry">
+
+                <div class="panel-access-info">
+
+                    <strong>
+                        Já possui uma API-Key?
+                    </strong>
+
+                    <span>
+                        Consulte o uso da sua chave e gerencie seu acesso.
+                    </span>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="open-panel-button"
+                    class="panel-access-button">
+
+                    🔑 Acessar painel
+
+                </button>
+
+            </div>
+
+            <!-- =========================
+                 AVISOS
+            ========================== -->
+
+            <div
+                id="message"
+                class="form-message"
+                role="alert"
+                aria-live="polite"
+                hidden>
+            </div>
+
+
+            <!-- =========================
+                 ETAPA 1
+            ========================== -->
+
+            <section
+                id="step-request"
+                class="api-key-step">
+
+                <div class="step-title">
+
+                    <span class="step-number">1</span>
+
+                    <div>
+                        <h2>Solicitar chave</h2>
+
+                        <p>
+                            Informe seu nome, e-mail e como pretende utilizar a API.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <form id="request-form" autocomplete="off">
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Nome
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Seu nome"
+                            maxlength="100"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="seu@email.com"
+                            maxlength="254"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="motivo-uso">
+                            Por que você deseja utilizar a API?
+                        </label>
+
+                        <textarea
+                            id="motivo-uso"
+                            name="motivo_uso"
+                            placeholder="Explique brevemente como você pretende utilizar a API..."
+                            minlength="10"
+                            maxlength="1000"
+                            rows="5"
+                            required></textarea>
+
+                        <small class="form-help">
+                            Informe pelo menos 10 caracteres e no máximo 1000.
+                        </small>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="request-button"
+                        class="primary-button">
+
+                        <span id="request-button-text">
+                            Solicitar API-Key
+                        </span>
+
+                        <span
+                            id="request-loading"
+                            class="loading-spinner"
+                            hidden
+                            aria-hidden="true">
+                            Enviando...
+                        </span>
+
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- =========================
+                 ETAPA 2
+            ========================== -->
+
+            <section
+                id="step-verification"
+                class="api-key-step"
+                hidden>
+
+                <div class="step-title">
+
+                    <span class="step-number">2</span>
+
+                    <div>
+
+                        <h2>Verificar e-mail</h2>
+
+                        <p>
+                            Enviamos um código de 6 dígitos
+                            para o e-mail informado.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="verification-info">
+
+                    <p>
+                        Código enviado para:
+                    </p>
+
+                    <strong id="verification-email">
+                        seu@email.com
+                    </strong>
+
+                </div>
+
+
+                <form
+                    id="verification-form"
+                    autocomplete="off">
+
+                    <div class="form-group">
+
+                        <label for="verification-code">
+                            Código de verificação
+                        </label>
+
+                        <input
+                            type="text"
+                            id="verification-code"
+                            name="verification-code"
+                            inputmode="numeric"
+                            autocomplete="one-time-code"
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                            placeholder="000000"
+                            required>
+
+                    </div>
+
+
+                    <!-- CONTADOR -->
+
+                    <div
+                        id="expiration-container"
+                        class="expiration-container">
+
+                        <span>
+                            O código expira em
+                        </span>
+
+                        <strong id="expiration-counter">
+                            15:00
+                        </strong>
+
+                    </div>
+
+
+                    <!-- ERRO ESPECÍFICO DO CÓDIGO -->
+
+                    <div
+                        id="code-error"
+                        class="code-error"
+                        role="alert"
+                        aria-live="polite"
+                        hidden>
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="verify-button"
+                        class="primary-button">
+
+                        <span id="verify-button-text">
+                            Verificar código
+                        </span>
+
+                        <span
+                            id="verify-loading"
+                            class="loading-spinner"
+                            hidden>
+                            Verificando...
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- REENVIO -->
+
+                <div class="resend-container">
+
+                    <p>
+                        Não recebeu o código?
+                    </p>
+
+                    <button
+                        type="button"
+                        id="resend-button"
+                        class="secondary-button"
+                        disabled>
+
+                        Reenviar código
+
+                        <span id="resend-counter">
+                            (aguarde)
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- VOLTAR -->
+
+                <button
+                    type="button"
+                    id="back-button"
+                    class="text-button">
+
+                    ← Voltar
+
+                </button>
+
+            </section>
+
+
+            <!-- =========================
+                 ETAPA 3
+            ========================== -->
+
+            <section
+                id="step-success"
+                class="api-key-step"
+                hidden>
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+
+                <div class="success-content">
+
+                    <h2>
+                        API-Key criada com sucesso!
+                    </h2>
+
+                    <p>
+                        Sua chave foi gerada. Guarde-a em um local seguro.
+                    </p>
+
+                </div>
+
+
+                <!-- AVISO -->
+
+                <div class="success-warning">
+
+                    <strong>
+                        ⚠️ Atenção
+                    </strong>
+
+                    <p>
+                        Esta chave não será exibida novamente.
+                        Copie e armazene-a antes de sair desta página.
+                    </p>
+
+                </div>
+
+
+                <!-- CAMPO DA API KEY -->
+
+                <div class="api-key-field">
+
+                    <label for="api-key">
+                        Sua API-Key
+                    </label>
+
+
+                    <div class="api-key-input-container">
+
+                        <input
+                            type="password"
+                            id="api-key"
+                            name="api-key"
+                            readonly
+                            spellcheck="false"
+                            autocomplete="off">
+
+
+                        <!-- REVELAR / OCULTAR -->
+
+                        <button
+                            type="button"
+                            id="toggle-key-button"
+                            class="icon-button"
+                            aria-label="Revelar API-Key"
+                            title="Revelar API-Key">
+
+                            👁️
+
+                        </button>
+
+
+                        <!-- COPIAR -->
+
+                        <button
+                            type="button"
+                            id="copy-key-button"
+                            class="icon-button"
+                            aria-label="Copiar API-Key"
+                            title="Copiar API-Key">
+
+                            📋
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AVISO DE CÓPIA -->
+
+                <div
+                    id="copy-success"
+                    class="copy-success"
+                    role="status"
+                    aria-live="polite"
+                    hidden>
+
+                    ✓ API-Key copiada para a área de transferência!
+
+                </div>
+
+
+                <!-- BOTÃO NOVA SOLICITAÇÃO -->
+
+                <button
+                    type="button"
+                    id="new-request-button"
+                    class="secondary-button">
+
+                    Solicitar outra API-Key
+
+                </button>
+
+            </section>
+
+
+
+
+            <!-- =================================================
+                 PAINEL DA API KEY
+            ================================================== -->
+
+            <section
+                id="step-manage"
+                class="api-key-step"
+                hidden>
+
+                <div class="step-title">
+
+                    <span class="step-number">🔑</span>
+
+                    <div>
+                        <h2>Painel da API-Key</h2>
+
+                        <p>
+                            Consulte os limites e gerencie sua chave de acesso.
+                        </p>
+                    </div>
+
+                </div>
+
+                <form
+                    id="manage-key-form"
+                    autocomplete="off">
+
+                    <div class="form-group">
+
+                        <label for="manage-api-key">
+                            Sua API-Key
+                        </label>
+
+                        <div class="api-key-input-container">
+
+                            <input
+                                type="password"
+                                id="manage-api-key"
+                                name="manage-api-key"
+                                placeholder="st_live_..."
+                                autocomplete="off"
+                                spellcheck="false"
+                                required>
+
+                            <button
+                                type="button"
+                                id="toggle-manage-key-button"
+                                class="icon-button"
+                                aria-label="Revelar API-Key"
+                                title="Revelar API-Key">
+
+                                👁️
+
+                            </button>
+
+                        </div>
+
+                        <small class="form-help">
+                            A chave é utilizada apenas para autenticar esta consulta e não é armazenada pelo navegador.
+                        </small>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="manage-key-button"
+                        class="primary-button">
+
+                        <span id="manage-key-button-text">
+                            Consultar minha chave
+                        </span>
+
+                        <span
+                            id="manage-key-loading"
+                            class="loading-spinner"
+                            hidden
+                            aria-hidden="true">
+                            Consultando...
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <div
+                    id="manage-panel"
+                    class="manage-panel"
+                    hidden>
+
+                    <div class="manage-summary">
+
+                        <div>
+                            <span class="manage-label">ID da API-Key</span>
+                            <strong id="manage-key-id">—</strong>
+                        </div>
+
+                        <div>
+                            <span class="manage-label">Criada em</span>
+                            <strong id="manage-created-at">—</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="usage-grid">
+
+                        <article class="usage-card">
+                            <span class="usage-icon">📊</span>
+                            <span class="usage-label">Requisições usadas</span>
+                            <strong id="manage-used">0</strong>
+                        </article>
+
+                        <article class="usage-card">
+                            <span class="usage-icon">⚡</span>
+                            <span class="usage-label">Requisições restantes</span>
+                            <strong id="manage-remaining">18</strong>
+                        </article>
+
+                        <article class="usage-card">
+                            <span class="usage-icon">🎯</span>
+                            <span class="usage-label">Limite por hora</span>
+                            <strong id="manage-limit">18</strong>
+                        </article>
+
+                    </div>
+
+                    <div class="usage-progress">
+
+                        <div class="usage-progress-header">
+                            <span>Uso do limite</span>
+                            <strong id="manage-usage-percent">0%</strong>
+                        </div>
+
+                        <div class="usage-progress-track" aria-hidden="true">
+                            <div
+                                id="manage-usage-progress"
+                                class="usage-progress-bar"
+                                style="width: 0%">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="manage-reset">
+
+                        <div>
+                            <span class="manage-label">Próxima atualização do limite</span>
+                            <strong id="manage-reset">—</strong>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="refresh-manage-button"
+                            class="secondary-button">
+
+                            ↻ Atualizar
+
+                        </button>
+
+                    </div>
+
+                    <div class="danger-zone">
+
+                        <div>
+                            <strong>Excluir API-Key</strong>
+                            <p>
+                                A exclusão é permanente e remove os dados associados à chave.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="delete-key-button"
+                            class="danger-button">
+
+                            🗑️ Deletar minha API-Key
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="manage-back-button"
+                    class="text-button">
+
+                    ← Voltar
+
+                </button>
+
+            </section>
+
+            <!-- =========================
+                 RODAPÉ INFORMATIVO
+            ========================== -->
+
+            <div class="api-key-footer">
+
+                <p>
+                    Ao solicitar uma API-Key, você concorda com os
+                    <a href="termos-de-uso.html">
+                        termos de uso
+                    </a>
+                    e a
+                    <a href="politica-de-privacidade.html">
+                        política de privacidade
+                    </a>
+                    da API Status Metropolitano.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+
+    <!-- =====================================================
+         MODAL DE CONFIRMAÇÃO DA EXCLUSÃO
+    ====================================================== -->
+
+    <div
+        id="delete-modal"
+        class="delete-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="delete-modal-title"
+        hidden>
+
+        <div
+            class="delete-modal-backdrop"
+            data-close-delete-modal>
+        </div>
+
+        <div class="delete-modal-content">
+
+            <div class="delete-modal-icon" aria-hidden="true">
+                ⚠️
+            </div>
+
+            <h2 id="delete-modal-title">
+                Deletar API-Key?
+            </h2>
+
+            <p>
+                Esta ação <strong>não poderá ser desfeita</strong>.
+            </p>
+
+            <p>
+                Ao continuar, sua API-Key será excluída e os dados
+                atrelados a ela também serão removidos. Você precisará
+                solicitar uma nova chave para utilizar os serviços novamente.
+            </p>
+
+            <div class="delete-modal-actions">
+
+                <button
+                    type="button"
+                    id="cancel-delete-button"
+                    class="secondary-button">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    type="button"
+                    id="confirm-delete-button"
+                    class="danger-button danger-button-confirm">
+
+                    Sim, deletar chave
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="../assets/js/main.js"></script>
+
+    <script src="../assets/js/chaves.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Consulte o status operacional das linhas metropolitanas."
+    >
+
+    <meta
+        name="theme-color"
+        content="#07111f"
+    >
+
+    <title>Status Operacional | API Status Metropolitano</title>
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/status.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="container header-content">
+
+            <a
+                href="../index.html"
+                class="brand"
+                aria-label="Página inicial da API Status Metropolitano"
+            >
+
+                <span class="brand-icon">
+                    🚇
+                </span>
+
+                <span class="brand-text">
+
+                    <strong>
+                        STATUS
+                    </strong>
+
+                    <span>
+                        METROPOLITANO
+                    </span>
+
+                </span>
+
+            </a>
+
+
+            <nav
+                class="main-navigation"
+                aria-label="Navegação principal"
+            >
+
+                <a
+                    href="../index.html"
+                    class="nav-link"
+                >
+                    Início
+                </a>
+
+                <a
+                    href="status.html"
+                    class="nav-link active"
+                >
+                    Status
+                </a>
+
+                <a
+                    href="documentacao.html"
+                    class="nav-link"
+                >
+                    Documentação
+                </a>
+
+                <a
+                    href="solicitar-chave.html"
+                    class="nav-link"
+                >
+                    API Key
+                </a>
+
+            </nav>
+
+
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Abrir menu"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main>
+
+        <!-- Cabeçalho da página -->
+
+        <section class="status-hero">
+
+            <div class="container">
+
+                <span class="section-tag">
+                    MONITORAMENTO OPERACIONAL
+                </span>
+
+                <h1>
+                    Status das linhas
+                </h1>
+
+                <p class="status-introduction">
+
+                    Consulte a situação operacional das linhas
+                    metropolitanas de São Paulo.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PAINEL DE CONTROLE
+        ================================================== -->
+
+        <section class="status-dashboard">
+
+            <div class="container">
+
+                <div class="status-toolbar">
+
+                    <div class="status-summary">
+
+                        <span
+                            class="status-summary-indicator"
+                            id="global-status-indicator"
+                        ></span>
+
+                        <div>
+
+                            <strong id="global-status-title">
+                                Consultando status...
+                            </strong>
+
+                            <span id="global-status-description">
+                                Aguarde enquanto buscamos os dados.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="button button-secondary refresh-button"
+                        id="refresh-status"
+                    >
+
+                        <span
+                            id="refresh-icon"
+                            aria-hidden="true"
+                        >
+                            ↻
+                        </span>
+
+                        Atualizar
+
+                    </button>
+
+                </div>
+
+
+                <!-- Informações da consulta -->
+
+                <div class="status-information-grid">
+
+                    <article class="status-information-card">
+
+                        <span class="information-label">
+                            ÚLTIMA ATUALIZAÇÃO
+                        </span>
+
+                        <strong
+                            id="last-update"
+                        >
+                            —
+                        </strong>
+
+                    </article>
+
+
+                    <article class="status-information-card">
+
+                        <span class="information-label">
+                            LINHAS CONSULTADAS
+                        </span>
+
+                        <strong
+                            id="total-lines"
+                        >
+                            —
+                        </strong>
+
+                    </article>
+
+
+                    <article class="status-information-card">
+
+                        <span class="information-label">
+                            FONTE DOS DADOS
+                        </span>
+
+                        <strong
+                            id="status-source"
+                        >
+                            —
+                        </strong>
+
+                    </article>
+
+                </div>
+
+
+                <!-- =================================================
+                     FILTROS
+                ================================================== -->
+
+                <div class="status-filters">
+
+                    <div class="filter-heading">
+
+                        <span class="section-tag">
+                            FILTRAR LINHAS
+                        </span>
+
+                        <p>
+                            Selecione o sistema que deseja consultar.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="filter-buttons"
+                        role="group"
+                        aria-label="Filtros de sistema"
+                    >
+
+                        <button
+                            type="button"
+                            class="filter-button active"
+                            data-filter="todos"
+                        >
+                            Todas
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-button"
+                            data-filter="metro"
+                        >
+                            Metrô
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-button"
+                            data-filter="cptm"
+                        >
+                            CPTM
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-button"
+                            data-filter="privadas"
+                        >
+                            Linhas metropolitanas
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ESTADOS DA CONSULTA
+                ================================================== -->
+
+                <div
+                    class="status-message"
+                    id="status-loading"
+                    aria-live="polite"
+                >
+
+                    <span class="loading-spinner"></span>
+
+                    <strong>
+                        Consultando informações...
+                    </strong>
+
+                    <p>
+                        Estamos buscando os dados mais recentes.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="status-message status-error hidden"
+                    id="status-error"
+                    role="alert"
+                >
+
+                    <span class="message-icon">
+                        ⚠️
+                    </span>
+
+                    <strong>
+                        Não foi possível consultar o status.
+                    </strong>
+
+                    <p id="status-error-description">
+
+                        Verifique sua conexão e tente novamente.
+
+                    </p>
+
+                    <button
+                        type="button"
+                        class="button button-secondary"
+                        id="retry-status"
+                    >
+                        Tentar novamente
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="status-message hidden"
+                    id="status-empty"
+                >
+
+                    <span class="message-icon">
+                        🚇
+                    </span>
+
+                    <strong>
+                        Nenhuma linha encontrada.
+                    </strong>
+
+                    <p>
+                        Não existem linhas para o filtro selecionado.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     LISTA DE LINHAS
+                ================================================== -->
+
+                <section
+                    class="lines-section"
+                    aria-labelledby="lines-title"
+                >
+
+                    <div class="section-heading">
+
+                        <span class="section-tag">
+                            OPERAÇÃO
+                        </span>
+
+                        <h2 id="lines-title">
+                            Linhas metropolitanas
+                        </h2>
+
+                        <p>
+                            A situação de cada linha será exibida
+                            abaixo após a consulta à API.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="lines-grid"
+                        id="lines-container"
+                    >
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             OBSERVAÇÃO SOBRE OS DADOS
+        ====================================================== -->
+
+        <section class="status-notice-section">
+
+            <div class="container">
+
+                <div class="status-notice">
+
+                    <span class="notice-icon">
+                        ℹ️
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Sobre as informações
+                        </h3>
+
+                        <p>
+
+                            Os dados exibidos são obtidos através
+                            das fontes oficiais consultadas pela
+                            API Status Metropolitano. Em caso de
+                            instabilidade na fonte original, a API
+                            poderá apresentar informações armazenadas
+                            em cache.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         RODAPÉ
+    ====================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <div class="footer-brand">
+
+                <span class="brand-icon">
+                    🚇
+                </span>
+
+                <div>
+
+                    <strong>
+                        API Status Metropolitano
+                    </strong>
+
+                    <p>
+                        Informações do transporte metropolitano.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="../index.html">
+                    Início
+                </a>
+
+                <a href="status.html">
+                    Status
+                </a>
+
+                <a href="documentacao.html">
+                    Documentação
+                </a>
+
+                <a href="solicitar-chave.html">
+                    API Key
+                </a>
+
+                <a href="termos-de-uso.html" aria-current="page">
+                    Termos de Uso
+                </a>
+
+                <a href="politica-de-privacidade.html">
+                    Privacidade
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="container footer-bottom">
+
+            <p>
+                © <span class="current-year"></span>
+                API Status Metropolitano.
+                Todos os direitos reservados.
+            </p>
+
+            <p>
+                Desenvolvido com tecnologia e trilhos. 🚇
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Scripts -->
+
+    <script src="../assets/js/main.js"></script>
+
+    <script src="../assets/js/status.js"></script>
+
+</body>
+
+</html>

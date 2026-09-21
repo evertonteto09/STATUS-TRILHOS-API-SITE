@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="API Status Metropolitano — consulte informações sobre a operação do Metrô e da CPTM."
+    >
+
+    <meta name="theme-color" content="#07111f">
+
+    <title>API Status Metropolitano</title>
+
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- Cabeçalho -->
+
+    <header class="site-header">
+
+        <div class="container header-content">
+
+            <a
+                href="index.html"
+                class="brand"
+                aria-label="Página inicial da API Status Metropolitano"
+            >
+
+                <span class="brand-icon">🚇</span>
+
+                <span class="brand-text">
+
+                    <strong>STATUS</strong>
+
+                    <span>METROPOLITANO</span>
+
+                </span>
+
+            </a>
+
+            <nav
+                class="main-navigation"
+                aria-label="Navegação principal"
+            >
+
+                <a
+                    href="index.html"
+                    class="nav-link active"
+                >
+                    Início
+                </a>
+
+                <a
+                    href="pages/status.html"
+                    class="nav-link"
+                >
+                    Status
+                </a>
+
+                <a
+                    href="pages/documentacao.html"
+                    class="nav-link"
+                >
+                    Documentação
+                </a>
+
+                <a
+                    href="pages/solicitar-chave.html"
+                    class="nav-link"
+                >
+                    API Key
+                </a>
+
+            </nav>
+
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Abrir menu"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- Conteúdo principal -->
+
+    <main>
+
+        <!-- Seção principal -->
+
+        <section class="hero-section">
+
+            <div class="container hero-content">
+
+                <div class="hero-text">
+
+                    <span class="section-tag">
+                        API DE TRANSPORTE METROPOLITANO
+                    </span>
+
+                    <h1>
+
+                        Informações sobre o transporte
+
+                        <span class="highlight">
+                            em tempo real.
+                        </span>
+
+                    </h1>
+
+                    <p class="hero-description">
+
+                        Consulte informações sobre a operação do Metrô,
+                        CPTM e demais linhas metropolitanas através da
+                        API Status Metropolitano.
+
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="pages/status.html"
+                            class="button button-primary"
+                        >
+                            Consultar status
+                        </a>
+
+                        <a
+                            href="pages/documentacao.html"
+                            class="button button-secondary"
+                        >
+                            Ver documentação
+                        </a>
+
+                    </div>
+
+                    <div class="hero-status">
+
+                        <span class="status-indicator"></span>
+
+                        <span>
+                            Sistema de consulta online
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-visual">
+
+                    <div class="network-card">
+
+                        <div class="network-card-header">
+
+                            <span>
+                                <span class="live-dot"></span>
+                                STATUS METROPOLITANO
+                            </span>
+
+                            <span class="network-card-code">
+                                API
+                            </span>
+
+                        </div>
+
+                        <div class="network-map">
+
+                            <div class="map-line line-blue">
+
+                                <span class="station station-start"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station station-end"></span>
+
+                            </div>
+
+                            <div class="map-line line-green">
+
+                                <span class="station station-start"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station station-end"></span>
+
+                            </div>
+
+                            <div class="map-line line-red">
+
+                                <span class="station station-start"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station station-end"></span>
+
+                            </div>
+
+                            <div class="map-line line-coral">
+
+                                <span class="station station-start"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station"></span>
+
+                                <span class="station station-end"></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="network-card-footer">
+
+                            <span>METRÔ</span>
+
+                            <span>CPTM</span>
+
+                            <span>LINHAS METROPOLITANAS</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Recursos -->
+
+        <section class="features-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-tag">
+                        RECURSOS
+                    </span>
+
+                    <h2>
+                        Tudo em um só lugar.
+                    </h2>
+
+                    <p>
+                        Uma API criada para facilitar o acesso às informações
+                        do transporte metropolitano.
+                    </p>
+
+                </div>
+
+
+                <div class="features-grid">
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            📡
+                        </div>
+
+                        <h3>
+                            Status operacional
+                        </h3>
+
+                        <p>
+                            Consulte a situação atual das linhas,
+                            incluindo informações sobre operação normal,
+                            velocidade reduzida e ocorrências.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            📊
+                        </div>
+
+                        <h3>
+                            Histórico de ocorrências
+                        </h3>
+
+                        <p>
+                            Acesse informações históricas sobre alterações
+                            e ocorrências registradas na operação.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            ⚡
+                        </div>
+
+                        <h3>
+                            Respostas em JSON
+                        </h3>
+
+                        <p>
+                            Dados organizados em formato JSON para facilitar
+                            a integração com sites, bots e aplicações.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Sistemas atendidos -->
+
+        <section class="systems-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-tag">
+                        SISTEMAS ATENDIDOS
+                    </span>
+
+                    <h2>
+                        Acompanhe diferentes redes.
+                    </h2>
+
+                    <p>
+                        Informações reunidas em uma única plataforma.
+                    </p>
+
+                </div>
+
+
+                <div class="systems-grid">
+
+                    <article class="system-card">
+
+                        <div class="system-line system-line-blue"></div>
+
+                        <div class="system-card-content">
+
+                            <span class="system-code">
+                                LINHA 1
+                            </span>
+
+                            <h3>
+                                Azul
+                            </h3>
+
+                            <p>
+                                Metrô de São Paulo
+                            </p>
+
+                        </div>
+
+                        <span class="system-symbol">
+                            M
+                        </span>
+
+                    </article>
+
+
+                    <article class="system-card">
+
+                        <div class="system-line system-line-green"></div>
+
+                        <div class="system-card-content">
+
+                            <span class="system-code">
+                                LINHA 2
+                            </span>
+
+                            <h3>
+                                Verde
+                            </h3>
+
+                            <p>
+                                Metrô de São Paulo
+                            </p>
+
+                        </div>
+
+                        <span class="system-symbol">
+                            M
+                        </span>
+
+                    </article>
+
+
+                    <article class="system-card">
+
+                        <div class="system-line system-line-red"></div>
+
+                        <div class="system-card-content">
+
+                            <span class="system-code">
+                                LINHA 3
+                            </span>
+
+                            <h3>
+                                Vermelha
+                            </h3>
+
+                            <p>
+                                Metrô de São Paulo
+                            </p>
+
+                        </div>
+
+                        <span class="system-symbol">
+                            M
+                        </span>
+
+                    </article>
+
+
+                    <article class="system-card">
+
+                        <div class="system-line system-line-coral"></div>
+
+                        <div class="system-card-content">
+
+                            <span class="system-code">
+                                LINHA 11
+                            </span>
+
+                            <h3>
+                                Coral
+                            </h3>
+
+                            <p>
+                                CPTM
+                            </p>
+
+                        </div>
+
+                        <span class="system-symbol">
+                            C
+                        </span>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Chamada para documentação -->
+
+        <section class="cta-section">
+
+            <div class="container cta-content">
+
+                <div>
+
+                    <span class="section-tag">
+                        DESENVOLVEDORES
+                    </span>
+
+                    <h2>
+                        Pronto para integrar?
+                    </h2>
+
+                    <p>
+                        Consulte a documentação e descubra como utilizar
+                        os endpoints da API Status Metropolitano.
+                    </p>
+
+                </div>
+
+                <a
+                    href="pages/documentacao.html"
+                    class="button button-primary"
+                >
+                    Acessar documentação
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Rodapé -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <div class="footer-brand">
+
+                <span class="brand-icon">🚇</span>
+
+                <div>
+
+                    <strong>
+                        API Status Metropolitano
+                    </strong>
+
+                    <p>
+                        Informações do transporte metropolitano.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <a href="pages/status.html">
+                    Status
+                </a>
+
+                <a href="pages/documentacao.html">
+                    Documentação
+                </a>
+
+                <a href="pages/solicitar-chave.html">
+                    API Key
+                </a>
+
+                <a href="pages/termos-de-uso.html" aria-current="page">
+                    Termos de Uso
+                </a>
+
+                <a href="pages/politica-de-privacidade.html">
+                    Privacidade
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="container footer-bottom">
+
+            <p>
+                © 2026 API Status Metropolitano.
+                Todos os direitos reservados.
+            </p>
+
+            <p>
+                Desenvolvido com tecnologia e trilhos. 🚇
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
