@@ -129,23 +129,26 @@ const PRIVATE_LINES = [
 
 async function consultarStatus() {
 
-    const response = await fetch(STATUS_API_URL, {
+    const response =
+        await fetch(
+            STATUS_API_URL,
+            {
+                method: "GET",
 
-        method: "GET",
-    });
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            `Erro HTTP ${response.status}`
+                headers: {
+                    "Accept":
+                        "application/json"
+                }
+            }
         );
 
+    if (!response.ok) {
+        throw new Error(
+            "Não foi possível consultar o status."
+        );
     }
 
-
     return await response.json();
-
 }
 
 
