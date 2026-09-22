@@ -214,6 +214,430 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+   /* =========================================================
+   STATUS DA API
+========================================================= */
+
+const SITE_API_STATUS_URL =
+    "https://status-metropolitano-api.squareweb.app/site/api-status";
+
+
+let apiStatusTimer = null;
+
+
+/* =========================================================
+   FORMATAÇÃO DA DATA
+========================================================= */
+
+function formatarAtualizacaoApi() {
+
+    return new Intl.DateTimeFormat(
+        "pt-BR",
+        {
+            dateStyle: "short",
+            timeStyle: "medium"
+        }
+    ).format(
+        new Date()
+    );
+
+}
+
+
+/* =========================================================
+   ATUALIZA INDICADOR DA HOME
+========================================================= */
+
+function atualizarIndicadorHero(
+    estado,
+    texto
+) {
+
+    const container =
+        document.getElementById(
+            "hero-api-status"
+        );
+
+    const indicator =
+        document.getElementById(
+            "hero-api-indicator"
+        );
+
+    const statusText =
+        document.getElementById(
+            "hero-api-status-text"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.dataset.apiState =
+        estado;
+
+
+    if (indicator) {
+
+        indicator.classList.remove(
+            "api-online",
+            "api-offline",
+            "api-loading"
+        );
+
+        indicator.classList.add(
+            `api-${estado}`
+        );
+
+    }
+
+
+    if (statusText) {
+
+        statusText.textContent =
+            texto;
+
+    }
+
+}
+
+
+/* =========================================================
+   ATUALIZA CARTÃO
+========================================================= */
+
+function atualizarCartaoApi(
+    estado,
+    dados = null
+) {
+
+    const card =
+        document.getElementById(
+            "api-monitor-card"
+        );
+
+    const statusText =
+        document.getElementById(
+            "api-monitor-status-text"
+        );
+
+    const statusDot =
+        document.getElementById(
+            "api-monitor-status-dot"
+        );
+
+    const cpu =
+        document.getElementById(
+            "api-monitor-cpu"
+        );
+
+    const ram =
+        document.getElementById(
+            "api-monitor-ram"
+        );
+
+    const ping =
+        document.getElementById(
+            "api-monitor-ping"
+        );
+
+    const updated =
+        document.getElementById(
+            "api-monitor-updated"
+        );
+
+
+    if (!card) {
+        return;
+    }
+
+
+    card.dataset.apiState =
+        estado;
+
+
+    if (statusDot) {
+
+        statusDot.classList.remove(
+            "api-online",
+            "api-offline",
+            "api-loading"
+        );
+
+        statusDot.classList.add(
+            `api-${estado}`
+        );
+
+    }
+
+
+    /* =====================================
+       ONLINE
+    ====================================== */
+
+    if (
+        estado === "online" &&
+        dados
+    ) {
+
+        if (statusText) {
+            statusText.textContent =
+                "Operacional";
+        }
+
+
+        if (cpu) {
+            cpu.textContent =
+                dados.cpu ?? "—";
+        }
+
+
+        if (ram) {
+            ram.textContent =
+                dados.ram ?? "—";
+        }
+
+
+        if (ping) {
+
+            ping.textContent =
+                dados.ping_ms !== undefined
+                    ? `${dados.ping_ms} ms`
+                    : "—";
+
+        }
+
+
+        if (updated) {
+
+            updated.textContent =
+                formatarAtualizacaoApi();
+
+        }
+
+        return;
+    }
+
+
+    /* =====================================
+       OFFLINE
+    ====================================== */
+
+    if (
+        estado === "offline"
+    ) {
+
+        if (statusText) {
+            statusText.textContent =
+                "Indisponível";
+        }
+
+
+        if (cpu) {
+            cpu.textContent =
+                "—";
+        }
+
+
+        if (ram) {
+            ram.textContent =
+                "—";
+        }
+
+
+        if (ping) {
+            ping.textContent =
+                "—";
+        }
+
+
+        if (updated) {
+
+            updated.textContent =
+                formatarAtualizacaoApi();
+
+        }
+
+        return;
+    }
+
+
+    /* =====================================
+       ERRO / CARREGANDO
+    ====================================== */
+
+    if (statusText) {
+
+        statusText.textContent =
+            estado === "loading"
+                ? "Verificando..."
+                : "Não foi possível consultar";
+
+    }
+
+}
+
+
+/* =========================================================
+   CONSULTAR STATUS DA API
+========================================================= */
+
+async function consultarStatusApi() {
+
+    atualizarIndicadorHero(
+        "loading",
+        "Verificando status da API..."
+    );
+
+
+    atualizarCartaoApi(
+        "loading"
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                SITE_API_STATUS_URL,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    },
+
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
+
+
+        const resultado =
+            await response.json();
+
+
+        if (
+            !resultado.ok ||
+            !resultado.dados
+        ) {
+
+            throw new Error(
+                "Resposta inválida da API."
+            );
+
+        }
+
+
+        const dados =
+            resultado.dados;
+
+
+        /* =====================================
+           API ONLINE
+        ====================================== */
+
+        if (
+            dados.online === true
+        ) {
+
+            atualizarIndicadorHero(
+                "online",
+                "API operacional"
+            );
+
+
+            atualizarCartaoApi(
+                "online",
+                dados
+            );
+
+
+        } else {
+
+            /* =================================
+               API OFFLINE
+            ================================== */
+
+            atualizarIndicadorHero(
+                "offline",
+                "API indisponível"
+            );
+
+
+            atualizarCartaoApi(
+                "offline",
+                dados
+            );
+
+        }
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao consultar status da API:",
+            erro
+        );
+
+
+        atualizarIndicadorHero(
+            "error",
+            "Não foi possível verificar a API"
+        );
+
+
+        atualizarCartaoApi(
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   INICIALIZAR MONITORAMENTO
+========================================================= */
+
+function iniciarMonitoramentoApi() {
+
+    consultarStatusApi();
+
+
+    /*
+     * Atualiza a cada 30 segundos.
+     *
+     * A API possui seu próprio cache, então não há
+     * necessidade de ficar consultando constantemente.
+     */
+
+    if (apiStatusTimer) {
+
+        clearInterval(
+            apiStatusTimer
+        );
+
+    }
+
+
+    apiStatusTimer =
+        setInterval(
+            consultarStatusApi,
+            30000
+        );
+
+}
+
 
     /*
      * =====================================================
