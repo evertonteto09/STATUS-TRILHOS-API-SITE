@@ -277,10 +277,6 @@
     font-size: 14px;
 }
 
-.site-footer .footer-links a[aria-current="page"] {
-    color: var(--accent-cyan, #35c9ff);
-}
-
 @media (max-width: 760px) {
 
     .legal-container {
