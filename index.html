@@ -18,7 +18,7 @@
 
     <link
         rel="stylesheet"
-        href="assets/css/style.css"
+        href="{{ '/assets/css/style.css' | relative_url }}"
     >
 
 </head>
@@ -55,28 +55,28 @@
             >
 
                 <a
-                    href="index.html"
+                    href="{{ '/' | relative_url }}"
                     class="nav-link active"
                 >
                     Início
                 </a>
 
                 <a
-                    href="pages/status.html"
+                    href="{{ '/status' | relative_url }}"
                     class="nav-link"
                 >
                     Status
                 </a>
 
                 <a
-                    href="pages/documentacao.html"
+                    href="{{ '/documentacao' | relative_url }}"
                     class="nav-link"
                 >
                     Documentação
                 </a>
 
                 <a
-                    href="pages/solicitar-chave.html"
+                    href="{{ '/solicitar-chave' | relative_url }}"
                     class="nav-link"
                 >
                     API Key
@@ -549,27 +549,27 @@
 
             <div class="footer-links">
 
-                <a href="index.html">
+                <a href="{{ '/' | relative_url }}">
                     Início
                 </a>
 
-                <a href="pages/status.html">
+                <a href="{{ '/status' | relative_url }}">
                     Status
                 </a>
 
-                <a href="pages/documentacao.html">
+                <a href="{{ '/documentacao' | relative_url }}">
                     Documentação
                 </a>
 
-                <a href="pages/solicitar-chave.html">
+                <a href="{{ '/solicitar-chave' | relative_url }}">
                     API Key
                 </a>
 
-                <a href="pages/termos-de-uso.html" aria-current="page">
+                <a href="{{ '/termos-de-uso' | relative_url }}">
                     Termos de Uso
                 </a>
 
-                <a href="pages/politica-de-privacidade.html">
+                <a href="{{ '/politica-de-privacidade' | relative_url }}">
                     Privacidade
                 </a>
 
@@ -593,7 +593,7 @@
 
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 
 </body>
 
