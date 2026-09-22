@@ -1298,6 +1298,545 @@ h2 {
 
 }
 
+/* =========================================================
+   MONITORAMENTO DA API
+========================================================= */
+
+.api-monitor-section {
+
+    padding: 95px 0;
+
+    border-top: 1px solid rgba(126, 176, 220, 0.08);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(8, 25, 43, 0.35),
+            transparent
+        );
+
+}
+
+
+.api-monitor-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 28px;
+
+    border: 1px solid var(--border-highlight);
+
+    border-radius: var(--radius-large);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 42, 67, 0.82),
+            rgba(8, 20, 36, 0.94)
+        );
+
+    box-shadow:
+        var(--shadow-soft),
+        0 0 55px rgba(53, 201, 255, 0.08);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+/* Brilho suave no topo */
+
+.api-monitor-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(103, 245, 255, 0.07),
+            transparent 42%
+        );
+
+}
+
+
+/* Efeito ao passar o mouse */
+
+.api-monitor-card:hover {
+
+    transform: translateY(-4px);
+
+    border-color: rgba(73, 211, 255, 0.65);
+
+    box-shadow:
+        var(--shadow-soft),
+        0 0 65px rgba(53, 201, 255, 0.12);
+
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.api-monitor-header {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid var(--border-color);
+
+}
+
+
+.api-monitor-label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+.api-monitor-header h3 {
+
+    font-size: 26px;
+
+    line-height: 1.2;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.api-monitor-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 9px 13px;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+.api-monitor-status-dot {
+
+    display: inline-block;
+
+    width: 8px;
+
+    height: 8px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--text-muted);
+
+}
+
+
+/* =========================================================
+   ESTADO ONLINE
+========================================================= */
+
+.api-monitor-card[data-api-state="online"] {
+
+    border-color:
+        rgba(40, 223, 145, 0.38);
+
+}
+
+
+.api-monitor-status-dot.api-online,
+.status-indicator.api-online {
+
+    background: #28df91;
+
+    box-shadow:
+        0 0 14px rgba(40, 223, 145, 0.85);
+
+    animation:
+        pulse-status
+        2s
+        infinite;
+
+}
+
+
+.api-monitor-card[data-api-state="online"]
+.api-monitor-status {
+
+    color: #67f5b3;
+
+    border-color:
+        rgba(40, 223, 145, 0.25);
+
+    background:
+        rgba(40, 223, 145, 0.06);
+
+}
+
+
+/* =========================================================
+   ESTADO OFFLINE
+========================================================= */
+
+.api-monitor-card[data-api-state="offline"] {
+
+    border-color:
+        rgba(232, 50, 69, 0.45);
+
+}
+
+
+.api-monitor-status-dot.api-offline,
+.status-indicator.api-offline {
+
+    background: var(--line-red);
+
+    box-shadow:
+        0 0 14px rgba(232, 50, 69, 0.7);
+
+}
+
+
+.api-monitor-card[data-api-state="offline"]
+.api-monitor-status {
+
+    color: #ff8490;
+
+    border-color:
+        rgba(232, 50, 69, 0.25);
+
+    background:
+        rgba(232, 50, 69, 0.07);
+
+}
+
+
+/* =========================================================
+   CARREGANDO / ERRO
+========================================================= */
+
+.api-monitor-card[data-api-state="loading"],
+.api-monitor-card[data-api-state="error"] {
+
+    border-color:
+        rgba(126, 176, 220, 0.22);
+
+}
+
+
+.api-monitor-status-dot.api-loading,
+.status-indicator.api-loading {
+
+    background: var(--accent-blue);
+
+    box-shadow:
+        0 0 14px rgba(53, 201, 255, 0.75);
+
+    animation:
+        pulse-status
+        1.5s
+        infinite;
+
+}
+
+
+/* =========================================================
+   MÉTRICAS
+========================================================= */
+
+.api-monitor-metrics {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-top: 24px;
+
+}
+
+
+.api-monitor-metric {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 92px;
+
+    padding: 20px;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: var(--radius-medium);
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+
+}
+
+
+.api-monitor-metric:hover {
+
+    transform: translateY(-3px);
+
+    border-color:
+        var(--border-highlight);
+
+    background:
+        rgba(53, 201, 255, 0.055);
+
+}
+
+
+.api-monitor-metric-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: grid;
+
+    place-items: center;
+
+    flex-shrink: 0;
+
+    font-size: 20px;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 12px;
+
+    background:
+        rgba(53, 201, 255, 0.07);
+
+}
+
+
+.api-monitor-metric-label {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+}
+
+
+.api-monitor-metric strong {
+
+    color: var(--text-primary);
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+}
+
+
+/* =========================================================
+   RODAPÉ DO CARTÃO
+========================================================= */
+
+.api-monitor-footer {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border-color);
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.api-monitor-footer strong {
+
+    color: var(--text-secondary);
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 720px) {
+
+    .api-monitor-section {
+
+        padding: 70px 0;
+
+    }
+
+
+    .api-monitor-card {
+
+        padding: 22px;
+
+    }
+
+
+    .api-monitor-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 16px;
+
+    }
+
+
+    .api-monitor-status {
+
+        align-self: flex-start;
+
+    }
+
+
+    .api-monitor-metrics {
+
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+    }
+
+
+    .api-monitor-metric {
+
+        min-height: 82px;
+
+    }
+
+
+    .api-monitor-footer {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 5px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .api-monitor-card,
+    .api-monitor-metric {
+
+        transition: none;
+
+    }
+
+
+    .api-monitor-status-dot.api-online,
+    .status-indicator.api-online,
+    .api-monitor-status-dot.api-loading,
+    .status-indicator.api-loading {
+
+        animation: none;
+
+    }
+
+}
+
 
 /* =========================================================
    CTA
