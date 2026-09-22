@@ -1374,6 +1374,9 @@ h2 {
 
 }
 
+.site-footer .footer-links a[aria-current="page"] {
+    color: var(--accent-cyan, #35c9ff);
+}
 
 .footer-links a:hover {
 
