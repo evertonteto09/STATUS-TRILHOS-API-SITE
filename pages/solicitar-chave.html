@@ -1,3 +1,7 @@
+---
+permalink: /solicitar-chave
+---
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -8,9 +12,9 @@
 
     <title>Solicitar API-Key | API Status Metropolitano</title>
 
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 
-    <link rel="stylesheet" href="../assets/css/chaves.css">
+    <link rel="stylesheet" href="{{ '/assets/css/chaves.css' | relative_url }}">
 
 </head>
 
@@ -55,30 +59,29 @@
             >
 
                 <a
-                    href="../index.html"
+                    href="{{ '/' | relative_url }}"
                     class="nav-link"
                 >
                     Início
                 </a>
 
                 <a
-                    href="status.html"
-                    class="nav-link"
+                    href="{{ '/status' | relative_url }}"
+                    class="nav-link active"
                 >
                     Status
                 </a>
 
                 <a
-                    href="documentacao.html"
+                    href="{{ '/documentacao' | relative_url }}"
                     class="nav-link"
                 >
                     Documentação
                 </a>
 
                 <a
-                    href="solicitar-chave.html"
-                    class="nav-link active"
-                    aria-current="page"
+                    href="{{ '/solicitar-chave' | relative_url }}"
+                    class="nav-link"
                 >
                     API Key
                 </a>
@@ -836,9 +839,9 @@
          JAVASCRIPT
     ========================== -->
 
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 
-    <script src="../assets/js/chaves.js"></script>
+    <script src="{{ '/assets/js/chaves.js' | relative_url }}"></script>
 
 </body>
 
