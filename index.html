@@ -153,12 +153,12 @@
 
                     </div>
 
-                    <div class="hero-status">
+                    <div class="hero-status" id="hero-api-status" data-api-state="loading">
 
-                        <span class="status-indicator"></span>
+                        <span class="status-indicator" id="hero-api-indicator"></span>
 
-                        <span>
-                            Sistema de consulta online
+                        <span id="hero-api-status-text">
+                            Verificando status da API...
                         </span>
 
                     </div>
@@ -486,6 +486,189 @@
             </div>
 
         </section>
+
+        <!-- =====================================================
+     STATUS DA API
+====================================================== -->
+
+<section
+    class="api-monitor-section page-reveal"
+    id="api-monitor-section"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-tag">
+                STATUS DA INFRAESTRUTURA
+            </span>
+
+            <h2>
+                Acompanhe nossa API.
+            </h2>
+
+            <p>
+                Monitore em tempo real o estado da API
+                e alguns indicadores da nossa infraestrutura.
+            </p>
+
+        </div>
+
+
+        <article
+            class="api-monitor-card"
+            id="api-monitor-card"
+            data-api-state="loading"
+        >
+
+            <!-- =========================================
+                 CABEÇALHO
+            ========================================== -->
+
+            <div class="api-monitor-header">
+
+                <div>
+
+                    <span class="api-monitor-label">
+                        API STATUS METROPOLITANO
+                    </span>
+
+                    <h3>
+                        Status da API
+                    </h3>
+
+                </div>
+
+
+                <div
+                    class="api-monitor-status"
+                    id="api-monitor-status"
+                >
+
+                    <span
+                        class="api-monitor-status-dot"
+                        id="api-monitor-status-dot"
+                    ></span>
+
+                    <span
+                        id="api-monitor-status-text"
+                    >
+                        Verificando...
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 MÉTRICAS
+            ========================================== -->
+
+            <div class="api-monitor-metrics">
+
+
+                <!-- CPU -->
+
+                <div class="api-monitor-metric">
+
+                    <span class="api-monitor-metric-icon">
+                        ⚙️
+                    </span>
+
+                    <div>
+
+                        <span class="api-monitor-metric-label">
+                            CPU
+                        </span>
+
+                        <strong
+                            id="api-monitor-cpu"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RAM -->
+
+                <div class="api-monitor-metric">
+
+                    <span class="api-monitor-metric-icon">
+                        🧠
+                    </span>
+
+                    <div>
+
+                        <span class="api-monitor-metric-label">
+                            RAM
+                        </span>
+
+                        <strong
+                            id="api-monitor-ram"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PING -->
+
+                <div class="api-monitor-metric">
+
+                    <span class="api-monitor-metric-icon">
+                        📡
+                    </span>
+
+                    <div>
+
+                        <span class="api-monitor-metric-label">
+                            Ping
+                        </span>
+
+                        <strong
+                            id="api-monitor-ping"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 RODAPÉ
+            ========================================== -->
+
+            <div class="api-monitor-footer">
+
+                <span>
+                    Última atualização
+                </span>
+
+                <strong
+                    id="api-monitor-updated"
+                >
+                    —
+                </strong>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
 
 
         <!-- Chamada para documentação -->
