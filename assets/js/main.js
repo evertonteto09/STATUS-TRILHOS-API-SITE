@@ -673,6 +673,10 @@ function iniciarMonitoramentoApi() {
     );
 
     console.log(
+       "Frontend inicializado com sucesso."
+       );
+
+    console.log(
         "Frontend inicializado com sucesso."
     );
 
