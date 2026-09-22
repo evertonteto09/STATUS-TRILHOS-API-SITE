@@ -28,12 +28,12 @@ permalink: /status
 
     <link
         rel="stylesheet"
-        href="/STATUS-TRILHOS-API-SITE/assets/css/style.css"
+        href="{{ '/assets/css/style.css' | relative_url }}"
     >
 
     <link
         rel="stylesheet"
-        href="/STATUS-TRILHOS-API-SITE/assets/css/status.css"
+        href="{{ '/assets/css/status.css' | relative_url }}"
     >
 
 </head>
@@ -49,7 +49,7 @@ permalink: /status
         <div class="container header-content">
 
             <a
-                href="../index.html"
+                href="{{ '/' | relative_url }}"
                 class="brand"
                 aria-label="Página inicial da API Status Metropolitano"
             >
@@ -79,28 +79,28 @@ permalink: /status
             >
 
                 <a
-                    href="../index.html"
+                    href="{{ '/' | relative_url }}"
                     class="nav-link"
                 >
                     Início
                 </a>
 
                 <a
-                    href="status.html"
+                    href="{{ '/status' | relative_url }}"
                     class="nav-link active"
                 >
                     Status
                 </a>
 
                 <a
-                    href="documentacao.html"
+                    href="{{ '/documentacao' | relative_url }}"
                     class="nav-link"
                 >
                     Documentação
                 </a>
 
                 <a
-                    href="solicitar-chave.html"
+                    href="{{ '/solicitar-chave' | relative_url }}"
                     class="nav-link"
                 >
                     API Key
@@ -508,27 +508,27 @@ permalink: /status
 
             <div class="footer-links">
 
-                <a href="../index.html">
+                <a href="{{ '/' | relative_url }}">
                     Início
                 </a>
 
-                <a href="status.html">
+                <a href="{{ '/status' | relative_url }}">
                     Status
                 </a>
 
-                <a href="documentacao.html">
+                <a href="{{ '/documentacao' | relative_url }}">
                     Documentação
                 </a>
 
-                <a href="solicitar-chave.html">
+                <a href="{{ '/solicitar-chave' | relative_url }}">
                     API Key
                 </a>
 
-                <a href="termos-de-uso.html" aria-current="page">
+                <a href="{{ '/termos-de-uso' | relative_url }}">
                     Termos de Uso
                 </a>
 
-                <a href="politica-de-privacidade.html">
+                <a href="{{ '/politica-de-privacidade' | relative_url }}">
                     Privacidade
                 </a>
 
@@ -556,9 +556,9 @@ permalink: /status
 
     <!-- Scripts -->
 
-    <script src="/STATUS-TRILHOS-API-SITE/assets/js/main.js"></script>
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 
-    <script src="/STATUS-TRILHOS-API-SITE/assets/js/status.js"></script>
+    <script src="{{ '/assets/js/status.js' | relative_url }}"></script>
 
 </body>
 
