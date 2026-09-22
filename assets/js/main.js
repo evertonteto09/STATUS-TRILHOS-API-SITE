@@ -3,171 +3,164 @@
    JavaScript principal do site
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
 
-    /*
-     * =====================================================
-     * MENU MOBILE
-     * =====================================================
-     */
+/* =========================================================
+   CONFIGURAÇÕES
+========================================================= */
 
-    const menuToggle = document.querySelector(".menu-toggle");
-    const mainNavigation = document.querySelector(".main-navigation");
+const SITE_API_STATUS_URL =
+    "https://status-metropolitano-api.squareweb.app/site/api-status";
 
-    if (menuToggle && mainNavigation) {
-
-        /*
-         * Abre / fecha o menu
-         */
-
-        menuToggle.addEventListener("click", () => {
-
-            const isOpen =
-                mainNavigation.classList.toggle("open");
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                isOpen
-            );
-
-            menuToggle.setAttribute(
-                "aria-label",
-                isOpen
-                    ? "Fechar menu"
-                    : "Abrir menu"
-            );
-
-        });
+const API_STATUS_INTERVAL =
+    30000;
 
 
-        /*
-         * Fecha o menu quando um link é selecionado
-         */
+/* =========================================================
+   ESTADO
+========================================================= */
 
-        const navigationLinks =
-            mainNavigation.querySelectorAll("a");
-
-        navigationLinks.forEach((link) => {
-
-            link.addEventListener("click", () => {
-
-                mainNavigation.classList.remove("open");
-
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                menuToggle.setAttribute(
-                    "aria-label",
-                    "Abrir menu"
-                );
-
-            });
-
-        });
+let apiStatusTimer = null;
 
 
-        /*
-         * Fecha o menu usando a tecla ESC
-         */
+/* =========================================================
+   MENU MOBILE
+========================================================= */
 
-        document.addEventListener("keydown", (event) => {
+function inicializarMenuMobile() {
 
-            if (event.key === "Escape") {
+    const menuToggle =
+        document.querySelector(
+            ".menu-toggle"
+        );
 
-                mainNavigation.classList.remove("open");
-
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                menuToggle.setAttribute(
-                    "aria-label",
-                    "Abrir menu"
-                );
-
-            }
-
-        });
+    const mainNavigation =
+        document.querySelector(
+            ".main-navigation"
+        );
 
 
-        /*
-         * Fecha o menu caso a tela volte para desktop
-         */
+    if (
+        !menuToggle ||
+        !mainNavigation
+    ) {
+        return;
+    }
 
-        window.addEventListener("resize", () => {
 
-            if (window.innerWidth > 720) {
+    function fecharMenu() {
 
-                mainNavigation.classList.remove("open");
+        mainNavigation.classList.remove(
+            "open"
+        );
 
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
 
-                menuToggle.setAttribute(
-                    "aria-label",
-                    "Abrir menu"
-                );
-
-            }
-
-        });
+        menuToggle.setAttribute(
+            "aria-label",
+            "Abrir menu"
+        );
 
     }
 
 
-    /*
-     * =====================================================
-     * NAVEGAÇÃO
-     * =====================================================
-     */
+    function alternarMenu() {
 
-    const currentPage =
-        window.location.pathname
-            .split("/")
-            .pop() || "index.html";
+        const aberto =
+            mainNavigation.classList.toggle(
+                "open"
+            );
 
 
-    const navigationLinks =
-        document.querySelectorAll(
-            ".main-navigation .nav-link"
+        menuToggle.setAttribute(
+            "aria-expanded",
+            String(aberto)
         );
 
 
-    navigationLinks.forEach((link) => {
+        menuToggle.setAttribute(
+            "aria-label",
+            aberto
+                ? "Fechar menu"
+                : "Abrir menu"
+        );
 
-        const linkPage =
-            link.getAttribute("href");
+    }
 
 
-        if (linkPage === currentPage) {
-
-            navigationLinks.forEach((item) => {
-
-                item.classList.remove("active");
-
-            });
-
-            link.classList.add("active");
-
-        }
-
-    });
+    menuToggle.addEventListener(
+        "click",
+        alternarMenu
+    );
 
 
     /*
-     * =====================================================
-     * ANIMAÇÃO DE ENTRADA
-     * =====================================================
-     *
-     * Pequeno efeito para elementos principais.
-     *
-     * Não utilizamos bibliotecas externas.
+     * Fecha o menu depois que um link
+     * é selecionado.
      */
+
+    mainNavigation
+        .querySelectorAll("a")
+        .forEach((link) => {
+
+            link.addEventListener(
+                "click",
+                fecharMenu
+            );
+
+        });
+
+
+    /*
+     * ESC fecha o menu.
+     */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                fecharMenu();
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Ao voltar para desktop,
+     * garantimos que o menu esteja fechado.
+     */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (
+                window.innerWidth > 720
+            ) {
+
+                fecharMenu();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DOS CARDS
+========================================================= */
+
+function inicializarAnimacaoCards() {
 
     const animatedElements =
         document.querySelectorAll(
@@ -175,15 +168,44 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    if ("IntersectionObserver" in window) {
+    if (
+        animatedElements.length === 0
+    ) {
+        return;
+    }
 
-        const observer =
-            new IntersectionObserver(
-                (entries, observerInstance) => {
 
-                    entries.forEach((entry) => {
+    if (
+        !("IntersectionObserver" in window)
+    ) {
 
-                        if (!entry.isIntersecting) {
+        animatedElements.forEach(
+            (element) => {
+
+                element.classList.add(
+                    "is-visible"
+                );
+
+            }
+        );
+
+        return;
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            (
+                entries,
+                observerInstance
+            ) => {
+
+                entries.forEach(
+                    (entry) => {
+
+                        if (
+                            !entry.isIntersecting
+                        ) {
                             return;
                         }
 
@@ -197,36 +219,99 @@ document.addEventListener("DOMContentLoaded", () => {
                             entry.target
                         );
 
-                    });
+                    }
+                );
 
-                },
-                {
-                    threshold: 0.12
-                }
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    animatedElements.forEach(
+        (element) => {
+
+            observer.observe(
+                element
             );
 
+        }
+    );
 
-        animatedElements.forEach((element) => {
-
-            observer.observe(element);
-
-        });
-
-    }
-
-   /* =========================================================
-   STATUS DA API
-========================================================= */
-
-const SITE_API_STATUS_URL =
-    "https://status-metropolitano-api.squareweb.app/site/api-status";
-
-
-let apiStatusTimer = null;
+}
 
 
 /* =========================================================
-   FORMATAÇÃO DA DATA
+   ANIMAÇÃO DE ENTRADA DA PÁGINA
+========================================================= */
+
+function iniciarAnimacaoPagina() {
+
+    const elementosAnimados =
+        document.querySelectorAll(
+            ".page-reveal"
+        );
+
+
+    if (
+        elementosAnimados.length === 0
+    ) {
+        return;
+    }
+
+
+    /*
+     * requestAnimationFrame garante
+     * que o navegador registre primeiro
+     * o estado inicial antes da animação.
+     */
+
+    requestAnimationFrame(
+        () => {
+
+            elementosAnimados.forEach(
+                (elemento) => {
+
+                    elemento.classList.add(
+                        "page-ready"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ANO AUTOMÁTICO
+========================================================= */
+
+function atualizarAno() {
+
+    const currentYear =
+        new Date().getFullYear();
+
+
+    document
+        .querySelectorAll(
+            ".current-year"
+        )
+        .forEach((element) => {
+
+            element.textContent =
+                currentYear;
+
+        });
+
+}
+
+
+/* =========================================================
+   FORMATA DATA/HORA
 ========================================================= */
 
 function formatarAtualizacaoApi() {
@@ -245,7 +330,7 @@ function formatarAtualizacaoApi() {
 
 
 /* =========================================================
-   ATUALIZA INDICADOR DA HOME
+   ATUALIZA INDICADOR DA HERO
 ========================================================= */
 
 function atualizarIndicadorHero(
@@ -269,6 +354,11 @@ function atualizarIndicadorHero(
         );
 
 
+    /*
+     * Algumas páginas não possuem
+     * o indicador da Hero.
+     */
+
     if (!container) {
         return;
     }
@@ -283,8 +373,10 @@ function atualizarIndicadorHero(
         indicator.classList.remove(
             "api-online",
             "api-offline",
-            "api-loading"
+            "api-loading",
+            "api-error"
         );
+
 
         indicator.classList.add(
             `api-${estado}`
@@ -304,7 +396,7 @@ function atualizarIndicadorHero(
 
 
 /* =========================================================
-   ATUALIZA CARTÃO
+   ATUALIZA CARTÃO DA API
 ========================================================= */
 
 function atualizarCartaoApi(
@@ -316,6 +408,11 @@ function atualizarCartaoApi(
         document.getElementById(
             "api-monitor-card"
         );
+
+    if (!card) {
+        return;
+    }
+
 
     const statusText =
         document.getElementById(
@@ -348,22 +445,27 @@ function atualizarCartaoApi(
         );
 
 
-    if (!card) {
-        return;
-    }
-
+    /*
+     * Estado geral do cartão.
+     */
 
     card.dataset.apiState =
         estado;
 
+
+    /*
+     * Estado visual do indicador.
+     */
 
     if (statusDot) {
 
         statusDot.classList.remove(
             "api-online",
             "api-offline",
-            "api-loading"
+            "api-loading",
+            "api-error"
         );
+
 
         statusDot.classList.add(
             `api-${estado}`
@@ -372,9 +474,9 @@ function atualizarCartaoApi(
     }
 
 
-    /* =====================================
+    /* =====================================================
        ONLINE
-    ====================================== */
+    ===================================================== */
 
     if (
         estado === "online" &&
@@ -382,20 +484,26 @@ function atualizarCartaoApi(
     ) {
 
         if (statusText) {
+
             statusText.textContent =
                 "Operacional";
+
         }
 
 
         if (cpu) {
+
             cpu.textContent =
                 dados.cpu ?? "—";
+
         }
 
 
         if (ram) {
+
             ram.textContent =
                 dados.ram ?? "—";
+
         }
 
 
@@ -416,39 +524,39 @@ function atualizarCartaoApi(
 
         }
 
+
         return;
     }
 
 
-    /* =====================================
+    /* =====================================================
        OFFLINE
-    ====================================== */
+    ===================================================== */
 
     if (
         estado === "offline"
     ) {
 
         if (statusText) {
+
             statusText.textContent =
                 "Indisponível";
+
         }
 
 
         if (cpu) {
-            cpu.textContent =
-                "—";
+            cpu.textContent = "—";
         }
 
 
         if (ram) {
-            ram.textContent =
-                "—";
+            ram.textContent = "—";
         }
 
 
         if (ping) {
-            ping.textContent =
-                "—";
+            ping.textContent = "—";
         }
 
 
@@ -459,20 +567,68 @@ function atualizarCartaoApi(
 
         }
 
+
         return;
     }
 
 
-    /* =====================================
-       ERRO / CARREGANDO
-    ====================================== */
+    /* =====================================================
+       CARREGANDO
+    ===================================================== */
 
-    if (statusText) {
+    if (
+        estado === "loading"
+    ) {
 
-        statusText.textContent =
-            estado === "loading"
-                ? "Verificando..."
-                : "Não foi possível consultar";
+        if (statusText) {
+
+            statusText.textContent =
+                "Verificando...";
+
+        }
+
+
+        return;
+    }
+
+
+    /* =====================================================
+       ERRO
+    ===================================================== */
+
+    if (
+        estado === "error"
+    ) {
+
+        if (statusText) {
+
+            statusText.textContent =
+                "Não foi possível verificar";
+
+        }
+
+
+        if (cpu) {
+            cpu.textContent = "—";
+        }
+
+
+        if (ram) {
+            ram.textContent = "—";
+        }
+
+
+        if (ping) {
+            ping.textContent = "—";
+        }
+
+
+        if (updated) {
+
+            updated.textContent =
+                formatarAtualizacaoApi();
+
+        }
 
     }
 
@@ -509,12 +665,23 @@ async function consultarStatusApi() {
                             "application/json"
                     },
 
+                    /*
+                     * Impede o navegador de
+                     * reutilizar uma resposta HTTP
+                     * antiga.
+                     *
+                     * Nosso backend continua
+                     * controlando o cache real.
+                     */
+
                     cache: "no-store"
                 }
             );
 
 
-        if (!response.ok) {
+        if (
+            !response.ok
+        ) {
 
             throw new Error(
                 `HTTP ${response.status}`
@@ -543,9 +710,9 @@ async function consultarStatusApi() {
             resultado.dados;
 
 
-        /* =====================================
-           API ONLINE
-        ====================================== */
+        /*
+         * A API declarou que está online.
+         */
 
         if (
             dados.online === true
@@ -563,24 +730,25 @@ async function consultarStatusApi() {
             );
 
 
-        } else {
-
-            /* =================================
-               API OFFLINE
-            ================================== */
-
-            atualizarIndicadorHero(
-                "offline",
-                "API indisponível"
-            );
-
-
-            atualizarCartaoApi(
-                "offline",
-                dados
-            );
-
+            return;
         }
+
+
+        /*
+         * A API respondeu, mas declarou
+         * que a aplicação está offline.
+         */
+
+        atualizarIndicadorHero(
+            "offline",
+            "API indisponível"
+        );
+
+
+        atualizarCartaoApi(
+            "offline",
+            dados
+        );
 
     } catch (erro) {
 
@@ -589,6 +757,11 @@ async function consultarStatusApi() {
             erro
         );
 
+
+        /*
+         * Erro de consulta não significa
+         * necessariamente que a API esteja offline.
+         */
 
         atualizarIndicadorHero(
             "error",
@@ -606,22 +779,46 @@ async function consultarStatusApi() {
 
 
 /* =========================================================
-   INICIALIZAR MONITORAMENTO
+   INICIAR MONITORAMENTO DA API
 ========================================================= */
 
 function iniciarMonitoramentoApi() {
+
+    /*
+     * Só iniciamos o monitoramento em páginas
+     * que realmente possuem nosso cartão/indicador.
+     */
+
+    const possuiMonitoramento =
+        document.getElementById(
+            "api-monitor-card"
+        ) ||
+        document.getElementById(
+            "hero-api-status"
+        );
+
+
+    if (
+        !possuiMonitoramento
+    ) {
+        return;
+    }
+
+
+    /*
+     * Primeira consulta imediatamente.
+     */
 
     consultarStatusApi();
 
 
     /*
-     * Atualiza a cada 30 segundos.
-     *
-     * A API possui seu próprio cache, então não há
-     * necessidade de ficar consultando constantemente.
+     * Evita criar múltiplos timers.
      */
 
-    if (apiStatusTimer) {
+    if (
+        apiStatusTimer
+    ) {
 
         clearInterval(
             apiStatusTimer
@@ -633,85 +830,8 @@ function iniciarMonitoramentoApi() {
     apiStatusTimer =
         setInterval(
             consultarStatusApi,
-            30000
+            API_STATUS_INTERVAL
         );
-
-}
-
-
-    /*
-     * =====================================================
-     * ANO AUTOMÁTICO
-     * =====================================================
-     *
-     * Se encontrarmos elementos com .current-year,
-     * colocamos automaticamente o ano atual.
-     */
-
-    const currentYear =
-        new Date().getFullYear();
-
-
-    document
-        .querySelectorAll(".current-year")
-        .forEach((element) => {
-
-            element.textContent = currentYear;
-
-        });
-
-
-    /*
-     * =====================================================
-     * INICIALIZAÇÃO
-     * =====================================================
-     */
-
-    console.log(
-        "%c🚇 API Status Metropolitano",
-        "color:#67f5ff;font-size:16px;font-weight:bold;"
-    );
-
-    console.log(
-       "Frontend inicializado com sucesso."
-       );
-
-    console.log(
-        "Frontend inicializado com sucesso."
-    );
-
-});
-
-/* =========================================================
-   ANIMAÇÃO DE ENTRADA DA PÁGINA
-========================================================= */
-
-function iniciarAnimacaoPagina() {
-
-    const elementosAnimados =
-        document.querySelectorAll(
-            ".page-reveal"
-        );
-
-    elementosAnimados.forEach(
-        (elemento) => {
-
-            /*
-             * Pequeno atraso para garantir que
-             * o navegador registre o estado inicial
-             * antes de iniciar a animação.
-             */
-
-            requestAnimationFrame(() => {
-
-                elemento.classList.add(
-                    "page-ready"
-                );
-
-            });
-
-        }
-    );
 
 }
 
@@ -724,7 +844,56 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
+        /*
+         * Menu
+         */
+
+        inicializarMenuMobile();
+
+
+        /*
+         * Cards com IntersectionObserver
+         */
+
+        inicializarAnimacaoCards();
+
+
+        /*
+         * Animação geral das páginas
+         */
+
         iniciarAnimacaoPagina();
+
+
+        /*
+         * Ano automático
+         */
+
+        atualizarAno();
+
+
+        /*
+         * Monitoramento da API.
+         *
+         * Só funciona em páginas que possuem
+         * os elementos do monitoramento.
+         */
+
+        iniciarMonitoramentoApi();
+
+
+        /*
+         * Log único de inicialização.
+         */
+
+        console.log(
+            "%c🚇 API Status Metropolitano",
+            "color:#67f5ff;font-size:16px;font-weight:bold;"
+        );
+
+        console.log(
+            "Frontend inicializado com sucesso."
+        );
 
     }
 );
