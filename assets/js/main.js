@@ -253,3 +253,50 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
+
+/* =========================================================
+   ANIMAÇÃO DE ENTRADA DA PÁGINA
+========================================================= */
+
+function iniciarAnimacaoPagina() {
+
+    const elementosAnimados =
+        document.querySelectorAll(
+            ".page-reveal"
+        );
+
+    elementosAnimados.forEach(
+        (elemento) => {
+
+            /*
+             * Pequeno atraso para garantir que
+             * o navegador registre o estado inicial
+             * antes de iniciar a animação.
+             */
+
+            requestAnimationFrame(() => {
+
+                elemento.classList.add(
+                    "page-ready"
+                );
+
+            });
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        iniciarAnimacaoPagina();
+
+    }
+);
