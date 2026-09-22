@@ -162,6 +162,78 @@ button {
 
 }
 
+/* =========================================================
+   ANIMAÇÃO DE ENTRADA DAS PÁGINAS
+========================================================= */
+
+.page-reveal.page-ready > * {
+
+    opacity: 0;
+
+    animation:
+        page-content-in
+        0.65s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        forwards;
+
+}
+
+
+.page-reveal.page-ready > *:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.page-reveal.page-ready > *:nth-child(2) {
+    animation-delay: 0.14s;
+}
+
+.page-reveal.page-ready > *:nth-child(3) {
+    animation-delay: 0.23s;
+}
+
+.page-reveal.page-ready > *:nth-child(4) {
+    animation-delay: 0.32s;
+}
+
+.page-reveal.page-ready > *:nth-child(5) {
+    animation-delay: 0.41s;
+}
+
+.page-reveal.page-ready > *:nth-child(6) {
+    animation-delay: 0.50s;
+}
+
+
+@keyframes page-content-in {
+
+    from {
+
+        opacity: 0;
+        transform: translateY(18px);
+
+    }
+
+    to {
+
+        opacity: 1;
+        transform: translateY(0);
+
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .page-reveal.page-ready > * {
+
+        opacity: 1;
+        transform: none;
+        animation: none;
+
+    }
+
+}
 
 /* =========================================================
    CABEÇALHO
@@ -1701,6 +1773,83 @@ h2 {
         scroll-behavior: auto !important;
 
         transition-duration: 0.01ms !important;
+
+    }
+
+}
+
+/* =========================================================
+   ANIMAÇÃO DE ENTRADA DAS PÁGINAS
+========================================================= */
+
+.page-reveal > * {
+    opacity: 0;
+    transform: translateY(18px);
+
+    animation:
+        page-content-in
+        0.65s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        forwards;
+}
+
+
+/*
+ * Pequeno atraso progressivo entre os blocos.
+ */
+
+.page-reveal > *:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.page-reveal > *:nth-child(2) {
+    animation-delay: 0.14s;
+}
+
+.page-reveal > *:nth-child(3) {
+    animation-delay: 0.23s;
+}
+
+.page-reveal > *:nth-child(4) {
+    animation-delay: 0.32s;
+}
+
+.page-reveal > *:nth-child(5) {
+    animation-delay: 0.41s;
+}
+
+.page-reveal > *:nth-child(6) {
+    animation-delay: 0.50s;
+}
+
+
+@keyframes page-content-in {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/*
+ * Usuários que preferem menos movimento.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .page-reveal > * {
+
+        opacity: 1;
+        transform: none;
+
+        animation: none;
 
     }
 
