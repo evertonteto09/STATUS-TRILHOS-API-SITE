@@ -78,31 +78,19 @@ permalink: /termos-de-uso
                 aria-label="Navegação principal"
             >
 
-                <a
-                    href="{{ '/' | relative_url }}"
-                    class="nav-link"
-                >
+                <a href="{{ '/' | relative_url }}" class="nav-link">
                     Início
                 </a>
 
-                <a
-                    href="{{ '/status' | relative_url }}"
-                    class="nav-link active"
-                >
+                <a href="{{ '/status' | relative_url }}" class="nav-link">
                     Status
                 </a>
 
-                <a
-                    href="{{ '/documentacao' | relative_url }}"
-                    class="nav-link"
-                >
+                <a href="{{ '/documentacao' | relative_url }}" class="nav-link">
                     Documentação
                 </a>
 
-                <a
-                    href="{{ '/solicitar-chave' | relative_url }}"
-                    class="nav-link"
-                >
+                <a href="{{ '/solicitar-chave' | relative_url }}" class="nav-link">
                     API Key
                 </a>
 
@@ -127,7 +115,7 @@ permalink: /termos-de-uso
          CONTEÚDO
     ====================================================== -->
 
-    <main class="legal-page page-reveal">
+    <main class="legal-page">
 
         <section class="legal-hero">
 
@@ -146,7 +134,7 @@ permalink: /termos-de-uso
                 </p>
 
                 <div class="legal-meta">
-                    <span>Última atualização: 20 de setembro de 2026</span>
+                    <span>Última atualização: 23 de setembro de 2026</span>
                     <span>Serviço gratuito</span>
                 </div>
 
@@ -184,7 +172,7 @@ permalink: /termos-de-uso
                         <div>
                             <strong>Em poucas palavras</strong>
                             <p>
-                                A API é gratuita, destinada a usos não comerciais e deve ser utilizada de forma responsável, respeitando os limites de acesso e a finalidade do serviço.
+                                A API é gratuita, destinada a usos não comerciais e deve ser utilizada de forma responsável, respeitando os limites de acesso e a finalidade do serviço. Em caso de uso inadequado, a administração poderá entrar em contato pelo e-mail associado à API-Key e aplicar medidas de proteção.
                             </p>
                         </div>
                     </div>
@@ -301,7 +289,19 @@ permalink: /termos-de-uso
                             </p>
 
                             <p>
-                                Medidas de proteção, como bloqueios temporários ou permanentes, podem ser aplicadas quando houver indícios de abuso.
+                                O uso contínuo da API que resulte em sucessivas respostas de rate limit, especialmente sem a adoção de cache ou outra estratégia para evitar consultas repetidas e desnecessárias, poderá ser considerado uso inadequado.
+                            </p>
+
+                            <p>
+                                Quando necessário, a administração poderá entrar em contato com o usuário por meio do e-mail associado à API-Key. Em casos de uso inadequado, poderá ser enviada uma <strong>Advertência 1</strong>, com orientações sobre boas práticas e sobre a utilização responsável do limite disponível.
+                            </p>
+
+                            <p>
+                                Caso o uso inadequado persista, poderá ser enviada uma <strong>Advertência 2</strong>, acompanhada de medidas adicionais de segurança, que podem incluir a redução do limite individual de requisições da API-Key.
+                            </p>
+
+                            <p>
+                                A continuidade do uso inadequado após as medidas anteriores poderá resultar na revogação da API-Key.
                             </p>
                         </div>
 
@@ -311,6 +311,36 @@ permalink: /termos-de-uso
                     <section class="legal-section">
 
                         <span class="legal-section-number">07</span>
+
+                        <div>
+                            <h2>Limites de acesso e solicitação de aumento</h2>
+
+                            <p>
+                                Cada API-Key possui um limite individual de requisições por hora. Esse limite pode variar de acordo com a configuração da chave e é informado no painel de gerenciamento da API-Key.
+                            </p>
+
+                            <p>
+                                Caso o limite atualmente disponível não seja suficiente para um projeto, o usuário pode solicitar uma análise de aumento de limite pelo e-mail <a href="mailto:everton.suporte.projetos@gmail.com">everton.suporte.projetos@gmail.com</a>.
+                            </p>
+
+                            <p>
+                                Para facilitar a análise, o pedido deve informar a finalidade do projeto, como a API será utilizada e uma estimativa da quantidade de requisições necessária por hora. A solicitação será analisada pela administração e o aumento não é automático ou garantido.
+                            </p>
+
+                            <div class="legal-callout">
+                                <strong>Boas práticas</strong>
+                                <p>
+                                    Antes de solicitar um aumento, verifique se sua aplicação utiliza cache ou outro mecanismo que evite consultas repetidas desnecessárias.
+                                </p>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <section class="legal-section">
+
+                        <span class="legal-section-number">08</span>
 
                         <div>
                             <h2>API-Key</h2>
@@ -329,7 +359,7 @@ permalink: /termos-de-uso
 
                     <section class="legal-section">
 
-                        <span class="legal-section-number">08</span>
+                        <span class="legal-section-number">09</span>
 
                         <div>
                             <h2>Dados e fontes de informação</h2>
@@ -355,7 +385,7 @@ permalink: /termos-de-uso
 
                     <section class="legal-section">
 
-                        <span class="legal-section-number">09</span>
+                        <span class="legal-section-number">10</span>
 
                         <div>
                             <h2>Responsabilidade pela utilização</h2>
@@ -374,13 +404,17 @@ permalink: /termos-de-uso
 
                     <section class="legal-section">
 
-                        <span class="legal-section-number">10</span>
+                        <span class="legal-section-number">11</span>
 
                         <div>
                             <h2>Revogação e suspensão</h2>
 
                             <p>
                                 O Status Metropolitano poderá suspender ou revogar uma API-Key quando identificar uso comercial, abuso da infraestrutura, tentativa de contornar mecanismos de proteção ou outras violações destes termos.
+                            </p>
+
+                            <p>
+                                Quando medidas administrativas forem aplicadas em razão do uso da API-Key, a administração poderá comunicar o usuário por meio do e-mail associado à chave, incluindo o envio das advertências previstas nestes termos e informações sobre alterações ou restrições aplicadas.
                             </p>
 
                             <p>
@@ -393,7 +427,7 @@ permalink: /termos-de-uso
 
                     <section class="legal-section">
 
-                        <span class="legal-section-number">11</span>
+                        <span class="legal-section-number">12</span>
 
                         <div>
                             <h2>Alterações dos termos</h2>
@@ -412,7 +446,7 @@ permalink: /termos-de-uso
 
                     <section class="legal-section legal-contact">
 
-                        <span class="legal-section-number">12</span>
+                        <span class="legal-section-number">13</span>
 
                         <div>
                             <h2>Contato</h2>
@@ -515,7 +549,7 @@ permalink: /termos-de-uso
     </footer>
 
 
-    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+    <script src="../assets/js/main.js"></script>
 
 </body>
 
