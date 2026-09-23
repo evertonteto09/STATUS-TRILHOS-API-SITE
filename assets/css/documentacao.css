@@ -186,6 +186,22 @@
             transform: translateY(-2px);
         }
 
+        .legal-email {
+         color: var(--accent-cyan, #35c9ff);
+         font-weight: 700;
+         text-decoration: none;
+        }
+
+        .legal-email:hover {
+         text-decoration: underline;
+        }
+
+        .legal-email {
+         display: inline-block;
+         margin-top: 14px;
+         font-size: 14px;
+        }
+
         @media (max-width: 700px) {
 
             .documentation-page {
